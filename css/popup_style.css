@@ -1,0 +1,421 @@
+/* Styles for popup.html */
+body {
+  	width: 410px;
+  	height: 210px;  
+  	margin: 5px;
+  	margin-top: 1px;
+	margin-bottom: 5px;
+  	background-color: rgb(221,228,234);
+  	-webkit-border-radius: 6px;
+  	font-size: 14px;
+  	font-family: "Helvetica Neue", Arial, sans-serif;
+
+	// No selectable
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none;
+    cursor:default;
+}
+
+
+#banner {
+  font-size: 17px;
+  font-weight: 800;
+  background-color:#f2f2f2;
+  padding: 10px 14px 8px;
+  color: #596573;
+  text-transform: uppercase;
+  text-shadow: 0px 1px #fff;
+  border-bottom: 1px solid #E5E5E5;
+  -webkit-box-shadow: inset 0px -1px rgba(0,0,0,0.1);
+  -webkit-border-radius: 5px 5px 0px 0px;
+
+}
+
+#content {
+  padding: 10px 14px;
+  width: 100%;
+}
+
+
+#add_view {
+}
+
+#notes {
+    width: 100%;
+    height: 50px;
+}
+
+#login_view {
+    padding-top: 30px;
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+}
+
+#home_view {
+    padding-top: 10px;
+    text-align: left;
+    font-weight: 600;
+    width: 90%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#helloMessage {
+	color: rgb(5,144,215);
+	font-size: 33px;
+	top:5px;
+}
+
+#tasksMessage {
+	color: black;
+	font-size: 27px;
+}
+
+#tasksNumber {
+	font-size:30px;
+	color: green;
+}
+
+#thanksMessage {
+	color: black;
+	font-size: 9px;
+}
+
+#asanaLogo{
+}
+
+#success_view {
+    padding-top: 84px;
+    text-align: center;
+    font-weight: 600;
+    width: 382px;
+    
+}
+
+#busy{
+	position:absolute;
+	margin-left:185px;
+	margin-top:85px;
+}
+
+.success-icon {
+  background-image: url(/assets/sprite.png);
+  background-position: 0px -50px;
+  background-repeat: no-repeat;
+  width: 19px;
+  min-width: 19px;
+  height: 16px;
+  min-height: 16px;
+  margin-bottom: -2px;
+  display: inline-block;
+
+}
+input, textarea {
+  -webkit-border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.2);
+  color: #212F40;
+  padding: 4px 5px 3px;
+  -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.1), 0px 1px #fff;
+}
+select, input, textarea {
+  font-size: 14px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #212F40;
+} 
+
+/***************************************************
+ * Tasks
+ ***************************************************/
+#tasks_view{
+	margin-bottom: 3px;
+	margin-left: 0px;
+	float:left;
+}
+
+#tasksTable{
+	width: 400px;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+#userLabel, #addTask_label {
+	width: 50%;
+	font-size:29px;
+	color: rgb(31,141,214);
+	margin: 5px;
+}
+
+.taskLine{
+	background-color: rgb(236,240,243);
+	padding: 5px;
+	text-align:left;
+	
+}
+
+.truncate{
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width:340px;
+}
+
+.taskLine:hover{
+	background-color: rgb(206,215,224);
+}
+
+.horizontalBar{
+	width:100%;
+	height:10px;
+}
+
+.emptyLine{
+	height:1px;
+}
+
+#tasksNumberInfo{
+	width: 100%;
+	height: 40px;
+  	font-size: 9px;
+	color: black;
+	text-align: center;
+	margin-top:5px;
+}
+
+/*************************************************
+ * Add task
+ ************************************************/
+
+#addTask_view{
+	position:absolute;
+	width: 415px;
+	left:450px;
+}
+
+#add_view{
+	
+}
+
+.form {
+	//margin-top:50px;
+	margin-left:5px;
+  	border: 0;
+  	padding: 0;
+}
+
+.field-value {
+	margin-left:5px;
+    width: 294px;
+    padding: 2px 0 2px 2px;
+    vertical-align: top;
+}
+
+.field-name {
+	margin-left:5px;
+  	width: 80px;
+  	padding: 6px 2px 2px 0px;
+  	vertical-align: top;
+  	font-size: 12px;
+  	font-weight: bold;
+  	color: #999999;
+  
+}
+
+#name {
+    width: 100%;
+}
+
+/*************************************************
+ * Buttons
+ *************************************************/
+
+.done, #addButton{
+	position: absolute;
+	top:0;
+	right:39px;
+	width: 60px;
+	height: 22px;
+	background-color: rgb(109,125,144);
+	color:white;
+	text-align: center;
+	margin: 5px;
+	margin-top: 8px;
+	padding-top:7px;
+	
+	-moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+}
+
+.done:hover, #addButton:hover {
+	background-color: rgb(235,239,243);
+	color: rgb(109,125,144);
+	
+	-moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+.add, .back {
+	position: absolute;
+	margin: 5px;
+	margin-top: 8px;
+	top:0;
+	right:4px;
+	width: 29px;
+	height: 29px;
+	background-color: rgb(242,242,242);
+	color: rgb(109,125,144);
+	font-size: 23px;
+	text-align: center;
+	
+	-moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+.add:hover, .back:hover {
+	background-color: rgb(235,239,243);
+}
+
+.loading{
+	position: absolute;
+	margin: 5px;
+	top:0;
+	right:105;
+	margin: 5px;
+	margin-top:13px;
+}
+
+
+/*************************************************
+ * Asana link
+ *************************************************/
+#asanaLink{
+	position:absolute;
+	bottom:2px;
+	right:5px;
+}
+
+.link{
+	font-size:10px;
+	color: rgb(31,141,214);
+	margin-right: 2px;
+	margin-bottom: 2px;
+}
+
+.link:hover{
+	text-decoration: none;
+}
+
+
+/*************************************************
+ * Checkbox
+ *************************************************/
+.regular-checkbox {
+    -webkit-appearance: none;
+    background-color: white;
+    border: 2px solid rgb(189,189,189);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+    padding: 7px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+}
+.regular-checkbox:hover{
+    border: 2px solid rgb(19,113,199);
+}
+
+.regular-checkbox:active, .regular-checkbox:checked:active {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.regular-checkbox:checked {
+    background-color: white;
+    border: 2px solid rgb(189,189,189);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    color: #99a1a7;
+}
+
+.regular-checkbox:checked:after {
+    content: '\2714';
+    font-size: 20px;
+    position: absolute;
+    top: -5px;
+    left: 0px;
+    color: rgb(30,135,205);
+}
+
+
+/*************************************************
+ * Errors && Success
+ ************************************************/
+#error, #success, #info {
+  	width: 80%;
+  	padding: 10px 14px;
+  	background-color: #434C56;
+  	font-weight: 500;
+  	color: #ECF0F3;
+	left:7%;
+	bottom:10%;
+	
+	opacity:0;
+	position: absolute;
+}
+
+.error-icon {
+  	background-image: url(/assets/sprite.png);
+  	background-position: 0px 0px;
+  	background-repeat: no-repeat;
+  	width: 19px;
+  	min-width: 19px;
+  	height: 16px;
+  	min-height: 16px;
+  	margin-bottom: -2px;
+  	display: inline-block;
+}
+
+.success-icon {
+  	background-image: url(/assets/sprite.png);
+  	background-position: 0px -50px;
+  	background-repeat: no-repeat;
+  	width: 19px;
+  	min-width: 19px;
+  	height: 16px;
+  	min-height: 16px;
+  	margin-bottom: -2px;
+	margin-right: 10px;
+  	display: inline-block;
+
+	float:left;
+}
+
+.info-icon {
+  	background-image: url(/assets/info.png);
+  	background-position: 0px 0px;
+  	background-repeat: no-repeat;
+  	width: 19px;
+  	min-width: 19px;
+  	height: 16px;
+  	min-height: 16px;
+	margin-right: 10px;
+  	display: inline-block;
+
+	float:left;
+}
+
+#successMessage,#infoMessage{
+	color: white;
+}
+
+
+
+
+
+
+

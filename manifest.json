@@ -1,0 +1,44 @@
+{
+  "name": "Asana Extension",
+  "version": "1.0.6",
+  "description": "With this extension you can see your incomplete tasks, mark them as complete and add new tasks.",
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png" 
+  },
+  "minimum_chrome_version": "16",
+
+  "manifest_version": 2,
+
+  "browser_action": {
+    "default_icon": "assets/asanaSmallLogin.png",
+    "default_title": "Asana",      
+    "default_popup": "popup.html" 
+  },
+
+  "background": "background.html",
+  "permissions": [
+    "tabs",
+    "*://*/*",
+    "cookies",
+    "*://*.asana.com/*",
+    "*://localhost.org/*"
+  ],
+  "content_scripts": [{
+    "matches": [
+      "<all_urls>"
+    ],
+    "exclude_matches": [
+      "*://*.asana.com/*"
+    ],
+    "js": [
+      "js/asana.js",
+      "js/selection_client.js",
+      "js/quick_add_client.js",
+      "js/background.js"
+    ],
+    "run_at": "document_start",
+    "all_frames": false
+  }]
+}
