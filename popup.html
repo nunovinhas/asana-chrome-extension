@@ -16,7 +16,7 @@
 
 	<!-- Do login view. -->
     <div id="login_view" style="display:none">
-	  	<img id="asanaLogo" src="icon128.png">
+	  	<img id="asanaLogo" src="assets/icon128.png">
       	<br \>
 		<br \>
 		Please <a id="login_link" href="#">login</a>
@@ -26,12 +26,23 @@
 	<div id="tasks_view" style="display:none">
 		<div id="userLabel">My tasks</div>
 		<!-- Loading icon. -->
-		<img class="loading" src="busy.gif" width="20px" style="display:none">
+		<img class="loading" src="assets/busy.gif" width="20px" style="display:none">
 		<div class="done">Done</div>
 		<div class="add">+</div>
-		<table id="tasksTable" cellspacing="0px">
-			<!-- Tasks List -->	
-		</table>
+		<div id="tasksTable">
+      <!-- Tasks List --> 
+      <h3 class="taskListTitle">New Tasks (<span id="inboxCount"></span>) <span class="toggleButton">-</span></h3>
+      <table class="taskList" id="inboxList"></table>
+      
+      <h3 class="taskListTitle">Today (<span id="todayCount"></span>) <span class="toggleButton">-</span></h3>
+      <table class="taskList" id="todayList"></table>
+      
+      <h3 class="taskListTitle">Upcoming (<span id="upcomingCount"></span>) <span class="toggleButton">+</span></h3>
+      <table class="taskList hideTaskList" id="upcomingList"></table>
+      
+      <h3 class="taskListTitle">Later (<span id="laterCount"></span>) <span class="toggleButton">+</span></h3>
+      <table class="taskList hideTaskList" id="laterList"></table>
+		</div>
 		<div id="tasksNumberInfo">You have 3 uncompleted tasks.</div>
 	</div>
 	
@@ -39,7 +50,7 @@
 	<div id="addTask_view" style="display:none">
 		<div class="back">&lsaquo;</div>
 		<div id="addTask_label">Add task</div>
-		<img class="loading" src="busy.gif" width="20px" style="display:none">
+		<img class="loading" src="assets/busy.gif" width="20px" style="display:none">
 		<div id="addButton">Add</div>
 		<table class="form">
         	<tr>
