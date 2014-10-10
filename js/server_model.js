@@ -151,7 +151,7 @@ Asana.ServerModel = {
 	*/
 	tasks: function(id, callback, errback) {
 			var self = this;
-			Asana.ApiBridge.request("GET", "/tasks?workspace="+id+"&assignee=me&opt_fields=assignee_status,completed,name", {},
+			Asana.ApiBridge.request("GET", "/tasks?workspace="+id+"&assignee=me&completed_since=now&opt_fields=assignee_status,completed,name", {},
 			function(response) {
 				self._makeCallback(response, callback, errback);
 			});
@@ -187,7 +187,6 @@ Asana.ServerModel = {
 				self._makeCallback(response, callback, errback);
 			});
 		},	
-
 
 	/**
 	*	Callback.

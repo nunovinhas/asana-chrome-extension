@@ -36,10 +36,15 @@
                   Asana.ServerModel.isLoggedIn(function(is_logged_in) {
                     console.timeEnd("is_logged_in");
                     if (is_logged_in) {
-                getRemainingTasks();
-                } else {
-                        // The user is not even logged in. Prompt them to do so!
-                        showLogin(Asana.Options.loginUrl(options));
+
+                      if(localStorage["tasks"]){
+                        console.log(JSON.parse(localStorage["tasks"]));
+                      }
+
+                      getRemainingTasks();
+                    } else {
+                          // The user is not even logged in. Prompt them to do so!
+                          showLogin(Asana.Options.loginUrl(options));
                     }
                   });
               });
@@ -53,7 +58,6 @@
       var workspacesArray = [];
       // Array containing all user's projects.
       var projectsArray = [];
-      
       
       Asana.ServerModel.me(function(user) {
         
@@ -108,15 +112,21 @@
                   }
                 } 
                 if(tasks.length == index){
+
+                  
+                  localStorage.setItem("tasksInboxArray", JSON.stringify(tasksInboxArray));
                   showTask(tasksInboxArray, "#inboxList");
                   tasksInboxNumber += tasksInboxArray.length;
                   
+                  localStorage.setItem("tasksTodayArray", JSON.stringify(tasksTodayArray));
                   showTask(tasksTodayArray, "#todayList");
                   tasksTodayNumber += tasksTodayArray.length;
 
+                  localStorage.setItem("tasksUpcomingArray", JSON.stringify(tasksUpcomingArray));
                   showTask(tasksUpcomingArray, "#upcomingList");
                   tasksUpcomingNumber += tasksUpcomingArray.length;
                   
+                  localStorage.setItem("tasksLaterArray", JSON.stringify(tasksLaterArray));
                   showTask(tasksLaterArray, "#laterList");
                   tasksLaterNumber += tasksLaterArray.length;
                   
@@ -146,7 +156,9 @@
         });
     } // End function
 
+    function showAllTasks() {
 
+    }
 
 
     /***********************************************************
@@ -218,9 +230,11 @@
         showView("login");
     };
 
-    function showTask(tasksArray, listSelector) {
+    function showTask(tasksArray, listSelector, name) {
   
       tasksNumber += tasksArray.length;
+
+      localStorage.setItem("tasksTodayArray", JSON.stringify(tasksTodayArray));
 
       for(var i = 0;i<tasksArray.length;i++){
         $(listSelector).append("<tr class=\"taskLine\"><td width=\"45px\"> <input id=\""+tasksArray[i].id+"\" type=\"checkbox\"  class=\"regular-checkbox\" /> </td><td> <div class=\"truncate\"> "+tasksArray[i].name+"</div></td></tr><tr class=\"emptyLine\"></tr> ");
@@ -231,6 +245,7 @@
         showView("tasks");
       }
     }
+    return tasksArray.length;
     
     function refreshTasksCounter() {
 

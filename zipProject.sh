@@ -1,0 +1,1 @@
+zip asana-chrome-extension.zip assets/* js/*.js *.html *.json css/*.css
