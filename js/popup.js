@@ -1,11 +1,17 @@
 
-  
+    var me = {};
   
     var tasksNumber = 0;
     var tasksInboxNumber = 0;
     var tasksTodayNumber = 0;
     var tasksUpcomingNumber = 0;
     var tasksLaterNumber = 0;
+
+    var tasksArray = [];
+    var tasksInboxArray = [];
+    var tasksTodayArray = [];
+    var tasksUpcomingArray = [];
+    var tasksLaterArray = [];
 
     var failed = false;
     var inAddTaskView = false;
@@ -37,11 +43,13 @@
                     console.timeEnd("is_logged_in");
                     if (is_logged_in) {
 
-                      if(localStorage["tasks"]){
-                        console.log(JSON.parse(localStorage["tasks"]));
-                      }
+                      showView("tasks");
+                      loadCachedTasks();
+                      refreshTasksCounter();
+                      $(".loading").css("display", "block");
 
-                      getRemainingTasks();
+                      window.setTimeout(getRemainingTasks,100);
+                    
                     } else {
                           // The user is not even logged in. Prompt them to do so!
                           showLogin(Asana.Options.loginUrl(options));
@@ -61,11 +69,9 @@
       
       Asana.ServerModel.me(function(user) {
         
-        //clear tasks (UI)
-        $("#inboxList").html("");
-        $("#todayList").html("");
-        $("#upcomingList").html("");
-        $("#laterList").html("");
+        me = user;
+
+        taskIdComp = 0;
         tasksNumber = 0;
         tasksInboxNumber = 0;
         tasksTodayNumber = 0;
@@ -91,16 +97,27 @@
             Asana.ServerModel.tasks(workspaceID,function(tasks) {
               console.timeEnd("tasks "+taskIdComp);
               taskIdComp += 1;
+              if(taskIdComp == 1){
+                tasksArray = [];
+                tasksInboxArray = [];
+                tasksTodayArray = [];
+                tasksUpcomingArray = [];
+                tasksLaterArray = [];
+              }
+              
+              for (var i = 0; i < tasks.length; i++) {
+                tasksArray.push(tasks[i]);
+              };
 
-              var tasksArray = [];
-              var tasksInboxArray = [];
-              var tasksTodayArray = [];
-              var tasksUpcomingArray = [];
-              var tasksLaterArray = [];
+              if(taskIdComp != workspacesArray.length){
+                return;
+              }
+              
+
               var index = 1;
-              tasks.forEach(function(task) {
+              tasksArray.forEach(function(task) {
                 if(task.completed == false){
-                  tasksArray.push(task);
+                  
                   if (task.assignee_status == "inbox"){
                     tasksInboxArray.push(task);
                   } else if (task.assignee_status == "today") {
@@ -111,24 +128,15 @@
                     tasksLaterArray.push(task);
                   }
                 } 
-                if(tasks.length == index){
+                if(tasksArray.length == index){
+                  
+                  tasksInboxNumber += showTasks(tasksInboxArray, "inboxList");
+                  
+                  tasksTodayNumber += showTasks(tasksTodayArray, "todayList");
 
+                  tasksUpcomingNumber += showTasks(tasksUpcomingArray, "upcomingList");
                   
-                  localStorage.setItem("tasksInboxArray", JSON.stringify(tasksInboxArray));
-                  showTask(tasksInboxArray, "#inboxList");
-                  tasksInboxNumber += tasksInboxArray.length;
-                  
-                  localStorage.setItem("tasksTodayArray", JSON.stringify(tasksTodayArray));
-                  showTask(tasksTodayArray, "#todayList");
-                  tasksTodayNumber += tasksTodayArray.length;
-
-                  localStorage.setItem("tasksUpcomingArray", JSON.stringify(tasksUpcomingArray));
-                  showTask(tasksUpcomingArray, "#upcomingList");
-                  tasksUpcomingNumber += tasksUpcomingArray.length;
-                  
-                  localStorage.setItem("tasksLaterArray", JSON.stringify(tasksLaterArray));
-                  showTask(tasksLaterArray, "#laterList");
-                  tasksLaterNumber += tasksLaterArray.length;
+                  tasksLaterNumber += showTasks(tasksLaterArray, "laterList");
                   
                   refreshTasksCounter();
   
@@ -155,10 +163,6 @@
             });   
         });
     } // End function
-
-    function showAllTasks() {
-
-    }
 
 
     /***********************************************************
@@ -230,22 +234,40 @@
         showView("login");
     };
 
-    function showTask(tasksArray, listSelector, name) {
+    function loadCachedTasks() {
+      if(localStorage.getItem("inboxList") ){
+        tasksInboxNumber = showTasks(JSON.parse(localStorage.getItem("inboxList")), "inboxList" );
+      }
+      if(localStorage.getItem("todayList") ) {
+        tasksTodayNumber = showTasks(JSON.parse(localStorage.getItem("todayList")), "todayList" );
+      }
+      if(localStorage.getItem("upcomingList") ) {
+        tasksUpcomingNumber = showTasks(JSON.parse(localStorage.getItem("upcomingList")), "upcomingList" );
+      }
+      if(localStorage.getItem("laterList") ) {
+        tasksLaterNumber = showTasks(JSON.parse(localStorage.getItem("laterList")), "laterList" );
+      }
+    
+    };
+
+    function showTasks(tasksArray, listSelector) {
   
       tasksNumber += tasksArray.length;
 
-      localStorage.setItem("tasksTodayArray", JSON.stringify(tasksTodayArray));
+      localStorage.setItem(listSelector, JSON.stringify(tasksArray));
 
+      $("#"+listSelector).html("");
       for(var i = 0;i<tasksArray.length;i++){
-        $(listSelector).append("<tr class=\"taskLine\"><td width=\"45px\"> <input id=\""+tasksArray[i].id+"\" type=\"checkbox\"  class=\"regular-checkbox\" /> </td><td> <div class=\"truncate\"> "+tasksArray[i].name+"</div></td></tr><tr class=\"emptyLine\"></tr> ");
+        $("#"+listSelector).append("<tr class=\"taskLine\"><td width=\"45px\"> <input id=\""+tasksArray[i].id+"\" type=\"checkbox\"  class=\"regular-checkbox\" /> </td><td> <div class=\"truncate\"> "+tasksArray[i].name+"</div></td></tr><tr class=\"emptyLine\"></tr> ");
       }
   
       // Show the table tasks if !inAddTaskView
       if(!inAddTaskView){
         showView("tasks");
       }
-    }
-    return tasksArray.length;
+      return tasksArray.length;
+    };
+    
     
     function refreshTasksCounter() {
 
@@ -264,7 +286,7 @@
       
       // Refresh badge
       chrome.browserAction.setBadgeText({ text: tasksNumber+"" } );
-    }
+    };
 
     /************************************************************
      * Add Task
@@ -284,7 +306,7 @@
             });
           });
   
-    }
+    };
 
     // When the user changes the workspace, update the list of users.
     var onWorkspaceChanged = function() {
@@ -292,6 +314,10 @@
         $("#assignee").html("<option>Loading...</option>");
         Asana.ServerModel.users(workspace_id, function(users) {
           $("#assignee").html("");
+          if(users && users.length == 0) {
+            users.push(me);
+          }
+
           users = users.sort(function(a, b) {
             return (a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0);
           });
@@ -374,8 +400,8 @@
       
       ids.forEach(function(id){
         Asana.ServerModel.markAsDone(id,{
-                  completed: "true"
-                }, 
+              completed: "true"
+            }, 
             function() {
             }, 
             function() {

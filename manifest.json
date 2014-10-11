@@ -1,7 +1,7 @@
 {
   "name": "Asana Extension",
   "short_name": "Asana Extension",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "With this extension you can see your incomplete tasks in there own category, mark them as complete and add new tasks.",
   "icons": {
     "16": "assets/icon16.png",
