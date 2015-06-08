@@ -1,7 +1,8 @@
 {
   "name": "Asana Extension",
-  "version": "1.0.6",
-  "description": "With this extension you can see your incomplete tasks, mark them as complete and add new tasks.",
+  "short_name": "Asana Extension",
+  "version": "1.0.9",
+  "description": "With this extension you can see your incomplete tasks in there own category, mark them as complete and add new tasks.",
   "icons": {
     "16": "assets/icon16.png",
     "48": "assets/icon48.png",
@@ -19,6 +20,7 @@
 
   "background": "background.html",
   "permissions": [
+    "storage",
     "tabs",
     "*://*/*",
     "cookies",
